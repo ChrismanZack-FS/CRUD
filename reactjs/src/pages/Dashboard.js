@@ -1,6 +1,8 @@
 import "../App.css";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AuthService from "../services/auth.service";
+import UnitsService from "../services/units.service";
 import "../styles.scss";
 
 function Dashboard() {
@@ -12,18 +14,33 @@ function Dashboard() {
 		faction: "",
 		type: "",
 	});
+
+	const navigate = useNavigate();
+
 	const API_BASE =
 		process.env.NODE_ENV === "development"
 			? `http://localhost:8000/api/v1`
 			: process.env.REACT_APP_BASE_URL;
-	let ignore = false;
+
 	useEffect(() => {
-		if (!ignore) {
-			getUnits();
-		}
-		return () => {
-			ignore = true;
-		};
+		UnitsService.getAllPrivateUnits().then(
+			(response) => {
+				setUnits(response.data);
+			},
+			(error) => {
+				console.log("Secured Page Error:", error.response);
+				if (error.response && error.response.status == 403) {
+					AuthService.logout();
+					navigate("/login");
+				}
+			}
+		);
+		// if (!ignore) {
+		// 	getUnits();
+		// }
+		// return () => {
+		// 	ignore = true;
+		// };
 	}, []);
 
 	const getUnits = async () => {
@@ -67,6 +84,7 @@ function Dashboard() {
 			[event.target.name]: event.target.value,
 		}));
 	};
+	console.log("units state:", units);
 	return (
 		<div className="App">
 			<header className="App-header">

@@ -1,4 +1,8 @@
 const express = require("express");
+const passport = require("passport");
+const passportService = require("../services/passport");
+const protectedRoute = passport.authenticate("jwt", { session: false });
+
 const router = express.Router();
 
 const Unit = require("../models/unit");
@@ -21,7 +25,8 @@ const getUnit = async (req, res, next) => {
 };
 
 // GET ALL
-router.get("/", async (req, res) => {
+router.get("/", protectedRoute, async (req, res) => {
+	console.log("get all");
 	try {
 		const units = await Unit.find();
 		res.json(units);

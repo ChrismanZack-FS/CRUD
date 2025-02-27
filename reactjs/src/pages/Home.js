@@ -11,6 +11,14 @@ function Home() {
 					<Link to="/dashboard" className="nav-link">
 						Dashboard
 					</Link>
+					<br></br>
+					<Link to="/signup" className="nav-link">
+						Sign up
+					</Link>
+					<br></br>
+					<Link to="/login" className="nav-link">
+						Login
+					</Link>
 				</ul>
 			</header>
 		</div>
