@@ -20,11 +20,17 @@ const localStrategy = new LocalStrategy(localOptions, function (
 	console.log("local Strat.");
 
 	User.findOne({ email: email }, function (error, user) {
-		console.log("findOne log", user.email);
-		if (!user) {
-			console.log("no user found");
-			return done(null, false);
+		console.log("findOne log", user?.email);
+	
+		if (error) {
+			return done(error);
 		}
+	
+		if (!user) {
+			console.log("No user found");
+			return done(null, false); 
+		}
+	
 
 		user.comparePassword(password, function (error, isMatch) {
 			console.log("compare password");

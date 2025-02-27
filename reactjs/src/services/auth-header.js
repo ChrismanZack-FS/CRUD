@@ -4,7 +4,7 @@ const authHeader = () => {
 
 	if (user && user.token) {
 		// prettier-ignore
-		return { "Authorization": `${user.token}` };
+		return { "Authorization": `Bearer ${user.token}` };
 	} else {
 		return {};
 	}
