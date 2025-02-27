@@ -1,6 +1,5 @@
 const authHeader = () => {
 	const user = JSON.parse(localStorage.getItem("user"));
-	//working
 
 	if (user && user.token) {
 		// prettier-ignore

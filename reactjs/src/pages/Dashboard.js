@@ -15,6 +15,8 @@ function Dashboard() {
 		type: "",
 	});
 
+	
+
 	const navigate = useNavigate();
 
 	const API_BASE =
@@ -44,20 +46,26 @@ function Dashboard() {
 	}, []);
 
 	const getUnits = async () => {
+		
+		
+		
 		setLoading(true);
+		console.log(`${API_BASE}/units`)
 		try {
 			await fetch(`${API_BASE}/units`)
 				.then((res) => res.json())
 				.then((data) => {
-					console.log({ data });
+					console.log("get units:",data );
 					setUnits(data);
 				});
 		} catch (error) {
 			setError(error.message || "Unexpected Error");
 		} finally {
 			setLoading(false);
+			
 		}
 	};
+	//console.log(getUnits)
 
 	const createUnit = async () => {
 		try {
@@ -72,6 +80,7 @@ function Dashboard() {
 			setLoading(false);
 		}
 	};
+	
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		createUnit();
@@ -84,7 +93,8 @@ function Dashboard() {
 			[event.target.name]: event.target.value,
 		}));
 	};
-	console.log("units state:", units);
+	//console.log("units state:",units);
+	
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -92,7 +102,7 @@ function Dashboard() {
 				<Link to="/" className="nav-link">
 					Home
 				</Link>
-
+			
 				<ul>
 					{units &&
 						units.map((unit) => (
