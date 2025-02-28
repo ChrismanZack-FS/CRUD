@@ -22,20 +22,16 @@ const signup = (email, password) => {
 };
 
 const login = (email, password) => {
-	return axios
-		.post(`${API_BASE}${API_URL}/signin`, { email, password })
-		.then((response) => {
-			console.log(response.data);
-			if (response.data.token) {
-				localStorage.setItem("user", JSON.stringify(response.data));
-			}
-			return response.data;
-		})
-		.catch((error) => {
-			console.error("Login error", error);
-			throw error;
-		});
-};
+	return axios.post(`${API_BASE}${API_URL}/signin`, {
+        email, password
+    })
+    .then(response =>{
+        if(response.data.token){
+            localStorage.setItem("user", JSON.stringify(response.data))
+        }
+        return response.data
+    })
+}
 
 const logout = () => {
 	localStorage.removeItem("user");
