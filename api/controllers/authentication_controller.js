@@ -13,16 +13,9 @@ const tokenForUser = (user) => {
 	);
 };
 
-exports.signin = (req, res) => {
-	try {
-		console.log("User authenticated:", req.user.email);
-
-		const token = tokenForUser(req.user);
-		res.json({ token, user_id: req.user._id });
-	} catch (error) {
-		console.error("Signin Error:", error);
-		res.status(500).json({ error: "Server error during signin." });
-	}
+exports.signin = (req, res, next) => {
+	const user = req.user;
+	res.send({ token: tokenForUser(user), user_id: user._id });
 };
 
 exports.signup = async (req, res, next) => {

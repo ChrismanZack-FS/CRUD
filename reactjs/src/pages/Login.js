@@ -1,5 +1,5 @@
 import "../App.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import "../styles.scss";
@@ -14,14 +14,18 @@ function Login() {
 		event.preventDefault();
 
 		try {
-			console.log("attempt login");
-			await AuthService.login(email, password).then((response) =>
-				navigate("/dashboard")
-			);
-		} catch (error) {
-			console.error(error);
-		}
-	};
+			await AuthService.login(email,password).then(
+                response =>{
+                    navigate("/dashboard")
+                },
+                error => {
+                    console.error(error)
+                }
+            )
+        } catch (error) {
+            console.error(error)
+        }
+    }
 	return (
 		<div className="App">
 			<header className="App-header">
