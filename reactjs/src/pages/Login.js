@@ -7,20 +7,29 @@ import "../styles.scss";
 function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-
+	const [errorMessage, setErrorMessage] = useState(""); // To hold the error message
+  
 	const navigate = useNavigate();
-
+  
 	const handleLogin = async (event) => {
-		event.preventDefault();
-
-		try {
-			console.log("attempt login");
-			await AuthService.login(email, password).then((response) =>
-				navigate("/dashboard")
-			);
-		} catch (error) {
-			console.error(error);
+	  event.preventDefault();
+  
+	  try {
+		console.log("attempt login");
+		const response = await AuthService.login(email, password);
+		console.log("Login successful:", response);
+		navigate("/dashboard"); // Redirect to dashboard on successful login
+	  } catch (error) {
+		// Log the error for debugging
+		console.error("Login failed:", error);
+  
+		// Display a meaningful error message to the user
+		if (error.response && error.response.data) {
+		  setErrorMessage(error.response.data.message || "Login failed. Please try again.");
+		} else {
+		  setErrorMessage("An error occurred. Please try again later.");
 		}
+	  }
 	};
 	return (
 		<div className="App">

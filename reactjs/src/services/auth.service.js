@@ -22,8 +22,8 @@ const signup = (email, password) => {
 };
 
 const login = (email, password) => {
-	console.log("server login");
-	console.log(`${API_BASE}${API_URL}/signin`);
+	// console.log("server login");
+	// console.log(`${API_BASE}${API_URL}/signin`);
 	return axios
 		.post(`${API_BASE}${API_URL}/signin`, { email, password })
 		.then((response) => {
