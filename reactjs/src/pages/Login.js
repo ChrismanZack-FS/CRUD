@@ -12,7 +12,6 @@ function Login() {
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
-
 		try {
 			await AuthService.login(email,password).then(
                 response =>{
