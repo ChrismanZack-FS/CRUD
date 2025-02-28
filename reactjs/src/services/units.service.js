@@ -15,5 +15,5 @@ const getAllPrivateUnits = () => {
 const unitsService = {
 	getAllPrivateUnits,
 };
-
+console.log("new")
 export default unitsService;
